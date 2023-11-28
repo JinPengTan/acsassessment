@@ -33,6 +33,8 @@ public class BookController {
     @ApiResponse(responseCode = "500", description = "Something unexpected error happen, please contact us")
     public ResponseEntity<Void> addBook(@RequestBody @Valid AddBookDTO request) {
 
+        log.info("Addbook : Request {}", request.toString());
+
         bookServices.addBook(request.getIsbn(), request.getTitle(), request.getAuthor(), request.getNumberOfBooks());
 
         return ResponseEntity.ok().build();

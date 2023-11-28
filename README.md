@@ -60,6 +60,20 @@ When i am writing this application, what i trying to achieve is you dont have to
 
 The docker compose included MySQL, Redis, and the WebApplication
 
+# Demonstrate the use of containerization and Continuous Integration/Continuous Deployment (CI/CD) tools in a declarative manner.
+Honestly i have no done any containerization in my pass experience, but i do understand the concept behind. I am using docker compose because 
+i am trying to make sure you can spend minimum effort to execute my application, in real world, pretty sure we will have cloud services hosted our Mysql and Redis service. I will only build image for my spring boot application.
+
+Let's say if we going to implement containerization and CI/CD pipeline.
+1. Dockerfile is required to build my springboot project into docker images
+2. Build and push my image into Docker hub
+3. Use a CI/CD tools, eg: Jenkins to build automation deployment with denied pipeline.
+4. The pipeline will contain
+   1. Build Stage, where we build our projects, eg: mvn clean package
+   2. Containerize, where we build and push our image into docker hub
+   3. Deploy, pull the image and do deployment.
+
+
 # Extra
 1. Flyway
 

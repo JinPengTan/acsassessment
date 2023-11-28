@@ -5,12 +5,14 @@ import com.assessment.acs.services.BorrowerServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/borrower")
 public class BorrowerController {
@@ -27,6 +29,8 @@ public class BorrowerController {
     @ApiResponse(responseCode = "400", description = "Please refer to the error message return by system")
     @ApiResponse(responseCode = "500", description = "Something unexpected error happen, please contact us")
     public ResponseEntity<Void> createBorrower(@RequestBody @Valid CreateBorrowerDTO request) {
+
+        log.info("createBorrower : Request {}", request.toString());
 
         borrowerServices.addBorrower(request.getName(), request.getEmail());
 
