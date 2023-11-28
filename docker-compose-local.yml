@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mysql-container-local:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    healthcheck:
+      test: "mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e 'select 1'"
+      interval: 1s
+      retries: 120
+    ports:
+      - ${MYSQL_PORTS}
+
+  redis-container-local:
+    image: redis:7
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      retries: 120
+    ports:
+      - ${REDIS_PORTS}
+
+  backend-local:
+    build:
+      context: .
+      dockerfile: DockerfileCopyFromTarget
+      args:
+        SPRING_PROFILE_ACTIVE: ${SPRING_PROFILE_ACTIVE}
+    depends_on:
+      mysql-container-dev:
+        condition: service_healthy
+      redis-container-dev:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_DATASOURCE_DRIVER=${SPRING_DATASOURCE_DRIVER}
+      - SPRING_PORTS=${SPRING_PORTS}
+      - SPRING_PROFILE_ACTIVE=${SPRING_PROFILE_ACTIVE}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    ports:
+      - ${SPRING_PORTS}
