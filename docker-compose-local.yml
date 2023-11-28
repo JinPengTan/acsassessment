@@ -31,9 +31,9 @@ services:
       args:
         SPRING_PROFILE_ACTIVE: ${SPRING_PROFILE_ACTIVE}
     depends_on:
-      mysql-container-dev:
+      mysql-container-local:
         condition: service_healthy
-      redis-container-dev:
+      redis-container-local:
         condition: service_healthy
     environment:
       - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
