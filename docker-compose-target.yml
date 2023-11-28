@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  mysql-container-dev:
+  mysql-container:
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -15,7 +15,7 @@ services:
     ports:
       - ${MYSQL_PORTS}
 
-  redis-container-dev:
+  redis-container:
     image: redis:7
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -24,16 +24,16 @@ services:
     ports:
       - ${REDIS_PORTS}
 
-  backend-dev:
+  backend:
     build:
       context: .
       dockerfile: DockerfileCopyFromTarget
       args:
         SPRING_PROFILE_ACTIVE: ${SPRING_PROFILE_ACTIVE}
     depends_on:
-      mysql-container-dev:
+      mysql-container:
         condition: service_healthy
-      redis-container-dev:
+      redis-container:
         condition: service_healthy
     environment:
       - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}

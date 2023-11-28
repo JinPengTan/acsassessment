@@ -3,6 +3,8 @@ package com.assessment.acs.controller;
 import com.assessment.acs.modal.dto.BorrowBookDTO;
 import com.assessment.acs.modal.dto.ReturnBookDTO;
 import com.assessment.acs.services.LibraryServices;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,10 @@ public class LibraryController {
     }
 
     @PutMapping("/borrow")
+    @Operation(summary = "Borrow a book")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Please refer to the error message return by system")
+    @ApiResponse(responseCode = "500", description = "Something unexpected error happen, please contact us")
     public ResponseEntity<Void> borrowBook(@RequestBody @Valid BorrowBookDTO request) {
 
         libraryServices.borrowBooks(request.getEmail(), request.getIsbn());
@@ -29,7 +35,11 @@ public class LibraryController {
     }
 
     @PutMapping("/return")
-    public ResponseEntity<Void> borrowBook(@RequestBody @Valid ReturnBookDTO request) {
+    @Operation(summary = "Return a book")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Please refer to the error message return by system")
+    @ApiResponse(responseCode = "500", description = "Something unexpected error happen, please contact us")
+    public ResponseEntity<Void> returBook(@RequestBody @Valid ReturnBookDTO request) {
 
         libraryServices.returnBooks(request.getEmail(), request.getIsbn());
 

@@ -3,6 +3,9 @@ package com.assessment.acs.controller;
 import com.assessment.acs.modal.dto.AddBookDTO;
 import com.assessment.acs.modal.dto.BookDTO;
 import com.assessment.acs.services.BookServices;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,10 @@ public class BookController {
     }
 
     @PostMapping("/create")
+    @Operation(summary = "Add a book or books into the system")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Please refer to the error message return by system")
+    @ApiResponse(responseCode = "500", description = "Something unexpected error happen, please contact us")
     public ResponseEntity<Void> addBook(@RequestBody @Valid AddBookDTO request) {
 
         bookServices.addBook(request.getIsbn(), request.getTitle(), request.getAuthor(), request.getNumberOfBooks());
@@ -32,6 +39,10 @@ public class BookController {
     }
 
     @GetMapping("/list")
+    @Operation(summary = "Get list of books in pagination format")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Please refer to the error message return by system")
+    @ApiResponse(responseCode = "500", description = "Something unexpected error happen, please contact us")
     public ResponseEntity<Page<BookDTO>> getBooks(Pageable pageable) {
 
         var books = bookServices.getBooks(pageable);
