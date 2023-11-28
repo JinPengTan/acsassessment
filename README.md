@@ -73,6 +73,10 @@ Let's say if we going to implement containerization and CI/CD pipeline.
    2. Containerize, where we build and push our image into docker hub
    3. Deploy, pull the image and do deployment.
 
+# Lombok
+Java 17 introduced Record, this is actually capable to eliminate Lombok. The reason why i am still using lombok is due to most of people still stick with lombok.
+
+There is disadvantage to implement lombok, 3rd party compatible is always an issue. And we need to install lombok and enable annotation.
 
 # Extra
 1. Flyway
