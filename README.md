@@ -31,7 +31,8 @@ With large and active community, we can always find a resources/solutions/tutori
 I am using open api 3, also known as swagger to provide the details for my API endpoint. After launch the application,
 please go to http://localhost:8080/swagger-ui/index.html you will get everything you need to call the API. 
 
-Besides, i have create a postman for you, so you can download and import the collection and play around with it.
+Besides, i have create a postman for you, so you can download and import the collection and play around with it. 
+Please refer to filepath /ACSLibrarySystem.postman_collection.json
 
 # Assumption
 I have make some assumption before i start the projects
